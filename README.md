@@ -26,7 +26,6 @@ pretend program, the output at each step would be:
 0
 ```
 
-
 ## Processor Operations
 
 Below are the processor operations that you should support, and what they should do.
@@ -41,31 +40,36 @@ Below are the processor operations that you should support, and what they should
 | nand      	| Logical nand ("not and")              	| nand 1 1     	| 0      	|
 | min       	| Find the minimum value of arguments   	| min 14 8 103 	| 8      	|
 | shift     	| Shift left by a number of bits        	| shift 8 2    	| 32     	|
-| invalid     | Any non-valid operations                | not an op     | invalid operation "not an op" |
+| invalid     | Any non-valid operations                | not an op     | invalid operation not an op |
 
-Notes:
-* All of the operations are defined for integer arguments. Floats or other arguments are invalid.
+**Notes:**
+
+* All of the operations are defined for integer arguments. Floats or other 
+    arguments are invalid.
 * Most operations take exactly two arguments.
-* `noop` takes no arguments. `min` should work with 2 or more arguments.
-* The logical `or` and `nand` operations always print out a `0` or `1`, no matter their inputs. 0 is treated as false, any other number is treated as true.
+* `noop` takes no arguments (it should be invalid if there are any arguments). 
+    `min` should work with 2 or more arguments.
+* The logical `or` and `nand` operations always print out a `0` or `1`, no matter
+    their inputs. 0 is treated as false, any other number is treated as true.
 * `shift` takes the bit representation of its argument, and moves the bits left,
     with the number of places to shift given by the second argument. So, 8
     (00001000) gets shifted left by 2 to become 32 (00100000).
-* `shift` is only defined for positive arguments, it is invalid for negative
-    numbers.
+* `shift` is only defined for positive arguments. It is invalid for negative numbers or zero.
 * For our processor, numbers have arbitrarily many bits. Don't worry about
     overflow or truncation for `add`, `mul`, or `shift`.
-* If the processor encounters an invalid operation, it should print an error message and stop.
+* If the processor encounters an invalid operation, it should print an error 
+    message and stop.
 
 ## Starter Code
 
 `main.py` has the function `run` already written for you. It reads a file
 containing a program and calls the `process` function on each line.
 
-There is also a `__name__ == "__main__"` module guard, to call the run function if
-the file is executed on the command line.
+There is also a `__name__ == "__main__"` module guard, to call the run function 
+if the file is executed on the command line.
 
-Your task is to implement the `process` function (right now it just prints each line) and any helper functions you need.
+Your task is to implement the `process` function (right now it just prints each 
+line) and any helper functions you need.
 
 ## Testing
 
@@ -74,10 +78,10 @@ inputs, to check that they are returning the results you expect. To run the
 first whole sample program, enter `python main.py sample1.txt` in the terminal.
 You can use the same pattern for the other samples, or write your own sample.
 
-The automated tests will call your main function with some sample processor 
-programs, and check that it prints the correct result. How you organize your
-code is up to you -- your helper functions are not tested in the automated
-tests.
+The automated tests will call the `process` or `run` function with some sample 
+operations or programs, and check that the functions print the correct result. 
+How you organize your code is up to you -- your helper functions are not tested 
+directly in the automated tests.
 
 ## Hints
 
