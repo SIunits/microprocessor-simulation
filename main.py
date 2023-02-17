@@ -66,18 +66,15 @@ def mul_op(args):
 
 # greater than operation
 def gt_op(args):
-    if len(args) != 2: return 'invalid'
-    return 1 if (args[0] > args[1]) else 0
+    return int(args[0] > args[1]) if len(args) == 2 else 'invalid'
 
 # or operation
 def or_op(args):
-    if len(args) != 2: return 'invalid'
-    return 0 if (args[0] | args[1]) == 0 else 1
+    return int(bool(args[0]) or bool(args[1])) if len(args) == 2 else 'invalid'
 
 # nand operation
 def nand_op(args):
-    if len(args) != 2: return 'invalid'
-    return 0 if (args[0] !=0 & args[1]!=0) else 1
+    return int(not(args[0] & args[1])) if len(args) == 2 else 'invalid'
 
 # min operation
 def min_op(args):
