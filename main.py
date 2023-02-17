@@ -6,7 +6,55 @@ import sys
 # You need to update the process function to actually handle the operations. To
 # start, it just prints out each line of the input.
 def process(line):
+<<<<<<< Updated upstream
     print(line)
+=======
+    # print(line)
+    # Split operation/command
+    op, args = split_op(line)
+     
+    # Execute operation
+    if (op not in OPS) | (args == 'invalid') | (args == 'no args' and op != 'noop'):
+        return f'invalid operation {line}'
+    
+    if op == 'noop':
+        ret = '' if args == 'no args' else 'invalid'
+    elif op == 'add':
+        ret = add_op(args)
+    elif op == 'mul':
+        ret = mul_op(args)
+    elif op == 'gt':
+        ret = gt_op(args)
+    elif op == 'or':
+        ret = or_op(args)
+    elif op == 'nand':
+        ret = nand_op(args)
+    elif op == 'min':
+        ret = min_op(args)
+    elif op == 'shift':
+        ret = shift_op(args)
+    else: return f'invalid operation {line}'
+    
+    # print(ret)
+    return f'invalid operation {line}' if ret=='invalid' else ret
+            
+def split_op(line):
+    ops_split = line.split(' ')
+    
+    if len(ops_split) == 1:
+        return ops_split[0], 'no args'
+    
+    # separate the operation/command from the arguments
+    op = ops_split.pop(0)
+    args = []
+    
+    for a in ops_split:
+        if (a != '0') & (not int(a)):
+            return op, 'invalid'
+        args.append(int(a))
+    
+    return str(op), args
+>>>>>>> Stashed changes
 
 
 # The run function is provided, you don't need to change it.
