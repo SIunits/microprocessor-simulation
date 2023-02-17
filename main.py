@@ -5,17 +5,15 @@ import sys
 
 # You need to update the process function to actually handle the operations. To
 # start, it just prints out each line of the input.
+OPS = ['noop', 'add', 'mul', 'gt', 'or', 'nand', 'min', 'shift']
 def process(line):
-<<<<<<< Updated upstream
-    print(line)
-=======
     # print(line)
     # Split operation/command
     op, args = split_op(line)
-     
+    
     # Execute operation
     if (op not in OPS) | (args == 'invalid') | (args == 'no args' and op != 'noop'):
-        return f'invalid operation {line}'
+        return f'invalid operation {line}\n'
     
     if op == 'noop':
         ret = '' if args == 'no args' else 'invalid'
@@ -33,10 +31,10 @@ def process(line):
         ret = min_op(args)
     elif op == 'shift':
         ret = shift_op(args)
-    else: return f'invalid operation {line}'
+    else: return f'invalid operation {line}\n'
     
     # print(ret)
-    return f'invalid operation {line}' if ret=='invalid' else ret
+    return f'invalid operation {line}\n' if ret=='invalid' else ret
             
 def split_op(line):
     ops_split = line.split(' ')
@@ -54,8 +52,40 @@ def split_op(line):
         args.append(int(a))
     
     return str(op), args
->>>>>>> Stashed changes
 
+# add operation
+def add_op(args):
+    return sum(args) if len(args) > 1 else 'invalid'
+
+# multiplication operation
+def mul_op(args):
+    prod = 1
+    for i in args:
+        prod *= i
+    return prod
+
+# greater than operation
+def gt_op(args):
+    if len(args) != 2: return 'invalid'
+    return 1 if (args[0] > args[1]) else 0
+
+# or operation
+def or_op(args):
+    if len(args) != 2: return 'invalid'
+    return 0 if (args[0] | args[1]) == 0 else 1
+
+# nand operation
+def nand_op(args):
+    if len(args) != 2: return 'invalid'
+    return 0 if (args[0] !=0 & args[1]!=0) else 1
+
+# min operation
+def min_op(args):
+    return min(args)
+
+# shift operation
+def shift_op(args):
+    return (args[0] << args[1]) if ((len(args) == 2) and (args[0] > 0)) else 'invalid'
 
 # The run function is provided, you don't need to change it.
 # It reads all the lines from a file, then calls the process function
