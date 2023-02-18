@@ -7,15 +7,15 @@ import sys
 # start, it just prints out each line of the input.
 OPS = ['noop', 'add', 'mul', 'gt', 'or', 'nand', 'min', 'shift']
 def process(line):
-    # print(line)
     # Split operation/command
     op, args = split_op(line)
     
-    # Execute operation
+    # Check operation and arguments
     if (op not in OPS) | (args == 'invalid') | (args == 'no args' and op != 'noop'):
         print(f'invalid operation {line}')
         return
     
+    # Execute operation
     if op == 'noop':
         ret = '' if args == 'no args' else 'invalid'
     elif op == 'add':
@@ -36,7 +36,6 @@ def process(line):
         print(f'invalid operation {line}')
         return
     
-    #print(ret)
     print(f'invalid operation {line}') if ret=='invalid' else print(ret)
     return
             
@@ -62,15 +61,20 @@ def split_op(line):
 
 # add operation
 def add_op(args):
-    return sum(args) if len(args) > 1 else 'invalid'
+    return sum(args) if len(args) == 2 else 'invalid'
 
 # multiplication operation
+def mul_op(args):
+    return (args[0] * args[1]) if len(args) == 2 else 'invalid'
+'''
+# option 2
 def mul_op(args):
     if len(args) != 2: return 'invalid'
     prod = 1
     for i in args:
         prod *= i
     return prod
+'''
 
 # greater than operation
 def gt_op(args):
@@ -90,7 +94,7 @@ def min_op(args):
 
 # shift operation
 def shift_op(args):
-    return (args[0] << args[1]) if ((len(args) == 2) and (args[0] > 0)) else 'invalid'
+    return (args[0] << args[1]) if ((len(args) == 2) & ((args[0] > 0) & (args[1] > 0))) else 'invalid'
 
 # The run function is provided, you don't need to change it.
 # It reads all the lines from a file, then calls the process function
