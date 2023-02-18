@@ -7,13 +7,14 @@ import sys
 # start, it just prints out each line of the input.
 OPS = ['noop', 'add', 'mul', 'gt', 'or', 'nand', 'min', 'shift']
 def process(line):
-    print(line)
+    # print(line)
     # Split operation/command
     op, args = split_op(line)
     
     # Execute operation
     if (op not in OPS) | (args == 'invalid') | (args == 'no args' and op != 'noop'):
-        return f'invalid operation {line}\n'
+        print(f'invalid operation {line}')
+        return
     
     if op == 'noop':
         ret = '' if args == 'no args' else 'invalid'
@@ -31,10 +32,13 @@ def process(line):
         ret = min_op(args)
     elif op == 'shift':
         ret = shift_op(args)
-    else: return f'invalid operation {line}\n'
+    else: 
+        print(f'invalid operation {line}')
+        return
     
-    print(ret)
-    return f'invalid operation {line}\n' if ret=='invalid' else ret
+    #print(ret)
+    print(f'invalid operation {line}') if ret=='invalid' else print(ret)
+    return
             
 def split_op(line):
     ops_split = line.split(' ')
@@ -62,6 +66,7 @@ def add_op(args):
 
 # multiplication operation
 def mul_op(args):
+    if len(args) != 2: return 'invalid'
     prod = 1
     for i in args:
         prod *= i
@@ -73,11 +78,11 @@ def gt_op(args):
 
 # or operation
 def or_op(args):
-    return int(bool(args[0]) or bool(args[1])) if len(args) == 2 else 'invalid'
+    return int(bool(args[0]) | bool(args[1])) if len(args) == 2 else 'invalid'
 
 # nand operation
 def nand_op(args):
-    return int(not(args[0] & args[1])) if len(args) == 2 else 'invalid'
+    return int(not(bool(args[0]) & bool(args[1]))) if len(args) == 2 else 'invalid'
 
 # min operation
 def min_op(args):
