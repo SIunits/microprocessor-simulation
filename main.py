@@ -46,10 +46,13 @@ def split_op(line):
     op = ops_split.pop(0)
     args = []
     
+    # checks and convert the arguments to integer if they are valid (integer)
     for a in ops_split:
-        if (a != '0') & (not int(a)):
+        try:
+            args.append(int(a))
+        except Exception:
             return op, 'invalid'
-        args.append(int(a))
+    
     
     return str(op), args
 
@@ -89,7 +92,7 @@ def shift_op(args):
 #   for each line 
 def run(filename):
     with open(filename, 'r') as file:
-        for operation in file.readlines():
+        for operation in file: #.readlines():
             process(operation.strip())
 
 # This code will call the run function with a filename, if it's provided on the 
