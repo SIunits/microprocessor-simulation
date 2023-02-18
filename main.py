@@ -7,7 +7,7 @@ import sys
 # start, it just prints out each line of the input.
 OPS = ['noop', 'add', 'mul', 'gt', 'or', 'nand', 'min', 'shift']
 def process(line):
-    # print(line)
+    print(line)
     # Split operation/command
     op, args = split_op(line)
     
@@ -33,7 +33,7 @@ def process(line):
         ret = shift_op(args)
     else: return f'invalid operation {line}\n'
     
-    # print(ret)
+    print(ret)
     return f'invalid operation {line}\n' if ret=='invalid' else ret
             
 def split_op(line):
